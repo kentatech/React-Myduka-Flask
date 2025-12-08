@@ -44,8 +44,13 @@ function Products() {
     fetch("http://127.0.0.1:5000/api/products")
       .then((res) => res.json())
       .then((data) => {
-        setProducts(data); // Save full product list
-        setFilteredProducts(data); // Initialize search list
+        // ------------------------------
+        // SORT DATA DESCENDING BY ID
+        // ------------------------------
+        const sorted = data.sort((a, b) => b.id - a.id); // <-- Changed line
+
+        setProducts(sorted); // Save full product list
+        setFilteredProducts(sorted); // Initialize search list
         setLoading(false);
       })
       .catch((err) => console.error("Error fetching products:", err));
@@ -76,10 +81,14 @@ function Products() {
 
       const savedProduct = await response.json();
 
-      setProducts([...products, savedProduct]); // Update list
-      setShowAddModal(false); // Close modal
+      // ------------------------------
+      // ADD PRODUCT AND RESORT DESCENDING
+      // ------------------------------
+      const updatedList = [savedProduct, ...products]; // <-- Changed line
+      setProducts(updatedList);
+      setFilteredProducts(updatedList);
+      setShowAddModal(false);
 
-      // Reset form
       setNewProduct({
         name: "",
         buying_price: "",
@@ -94,8 +103,8 @@ function Products() {
   // OPEN EDIT MODAL & LOAD PRODUCT DATA
   // -----------------------------------------
   const openEditModal = (product) => {
-    setEditProduct(product); // Load selected product into form
-    setShowEditModal(true); // Show edit modal
+    setEditProduct(product);
+    setShowEditModal(true);
   };
 
   // -----------------------------------------
@@ -116,12 +125,17 @@ function Products() {
 
       const updatedProduct = await response.json();
 
-      // Update the table
-      setProducts(
-        products.map((p) => (p.id === updatedProduct.id ? updatedProduct : p))
+      const updatedList = products.map((p) =>
+        p.id === updatedProduct.id ? updatedProduct : p
       );
 
-      setShowEditModal(false); // Close modal
+      // ------------------------------
+      // SORT UPDATED LIST DESCENDING
+      // ------------------------------
+      setProducts(updatedList.sort((a, b) => b.id - a.id)); // <-- Changed line
+      setFilteredProducts(updatedList.sort((a, b) => b.id - a.id)); // <-- Changed line
+
+      setShowEditModal(false);
     } catch (error) {
       console.error(error);
     }
@@ -185,21 +199,17 @@ function Products() {
         />
       </div>
 
-      {/* ------------------------------------------------------ */}
       {/* ADD PRODUCT MODAL */}
-      {/* ------------------------------------------------------ */}
       {showAddModal && (
         <div className="modal fade show d-block" style={{ background: "rgba(0,0,0,0.5)" }}>
           <div className="modal-dialog">
             <div className="modal-content">
-
               <div className="modal-header">
                 <h5 className="modal-title">Add New Product</h5>
                 <button className="btn-close" onClick={() => setShowAddModal(false)}></button>
               </div>
 
               <div className="modal-body">
-                {/* Name */}
                 <div className="mb-3">
                   <label className="form-label">Product Name</label>
                   <input
@@ -210,29 +220,23 @@ function Products() {
                   />
                 </div>
 
-                {/* Buying Price */}
                 <div className="mb-3">
                   <label className="form-label">Buying Price</label>
                   <input
                     type="number"
                     className="form-control"
                     value={newProduct.buying_price}
-                    onChange={(e) =>
-                      setNewProduct({ ...newProduct, buying_price: e.target.value })
-                    }
+                    onChange={(e) => setNewProduct({ ...newProduct, buying_price: e.target.value })}
                   />
                 </div>
 
-                {/* Selling Price */}
                 <div className="mb-3">
                   <label className="form-label">Selling Price</label>
                   <input
                     type="number"
                     className="form-control"
                     value={newProduct.selling_price}
-                    onChange={(e) =>
-                      setNewProduct({ ...newProduct, selling_price: e.target.value })
-                    }
+                    onChange={(e) => setNewProduct({ ...newProduct, selling_price: e.target.value })}
                   />
                 </div>
               </div>
@@ -245,40 +249,32 @@ function Products() {
                   Save Product
                 </button>
               </div>
-
             </div>
           </div>
         </div>
       )}
 
-      {/* ------------------------------------------------------ */}
       {/* EDIT PRODUCT MODAL */}
-      {/* ------------------------------------------------------ */}
       {showEditModal && (
         <div className="modal fade show d-block" style={{ background: "rgba(0,0,0,0.5)" }}>
           <div className="modal-dialog">
             <div className="modal-content">
-
               <div className="modal-header">
                 <h5 className="modal-title">Edit Product</h5>
                 <button className="btn-close" onClick={() => setShowEditModal(false)}></button>
               </div>
 
               <div className="modal-body">
-                {/* Name */}
                 <div className="mb-3">
                   <label className="form-label">Product Name</label>
                   <input
                     type="text"
                     className="form-control"
                     value={editProduct.name}
-                    onChange={(e) =>
-                      setEditProduct({ ...editProduct, name: e.target.value })
-                    }
+                    onChange={(e) => setEditProduct({ ...editProduct, name: e.target.value })}
                   />
                 </div>
 
-                {/* Buying Price */}
                 <div className="mb-3">
                   <label className="form-label">Buying Price</label>
                   <input
@@ -291,7 +287,6 @@ function Products() {
                   />
                 </div>
 
-                {/* Selling Price */}
                 <div className="mb-3">
                   <label className="form-label">Selling Price</label>
                   <input
@@ -313,7 +308,6 @@ function Products() {
                   Update Product
                 </button>
               </div>
-
             </div>
           </div>
         </div>
