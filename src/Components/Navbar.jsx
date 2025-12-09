@@ -4,7 +4,7 @@ import logo from "../logo supermarket.png"; // <-- Import images in React
 function Navbar() { 
     return (
         <div className="container">
-            <nav className="navbar navbar-expand-lg navbar-dark bg-success rounded-1 shadow-lg">
+            <nav className="navbar navbar-expand-lg navbar-dark bg-success rounded-1 shadow-lg ">
                 <div className="container-fluid">
 
                     {/* BRAND */}

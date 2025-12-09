@@ -187,7 +187,7 @@ function Purchases() {
             </div>
           </div>
         </div>
-
+        <div className="card">
         {/* Purchases Table */}
         <DataTable
           columns={columns}
@@ -201,6 +201,7 @@ function Purchases() {
           defaultSortFieldId="id"
           defaultSortAsc={false}    // <-- DESCENDING ORDER
         />
+        </div>
       </div>
 
       <Footer />

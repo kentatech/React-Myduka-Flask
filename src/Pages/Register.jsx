@@ -3,6 +3,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import Navbar from "../Components/Navbar";
 import Footer from "../Components/Footer";
+import bkimg from "../4885247.jpg";
 
 const Register = () => {
   const [username, setUsername] = useState("");
@@ -48,7 +49,7 @@ const Register = () => {
     <Navbar />
     <div
       style={{
-        backgroundImage: "url('4885247.jpg')",
+        backgroundImage: `url(${bkimg})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",

@@ -180,7 +180,7 @@ function Sales() {
                         onChange={(e) => setSearchTerm(e.target.value)}
                     />
                 </div>
-
+                <div className="card ">
                 {/* Sales DataTable */}
                 <DataTable
                     columns={columns}
@@ -192,6 +192,7 @@ function Sales() {
                     dense
                     highlightOnHover
                 />
+                </div>
             </div>
 
             {/* ------------------------------------------------------------

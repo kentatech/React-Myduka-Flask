@@ -4,6 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import Navbar from "../Components/Navbar";
 import Footer from "../Components/Footer";
+import bckimg from "../4885247.jpg";
 
 const Login = () => {
   const [email, setEmail]     = useState("");
@@ -56,7 +57,7 @@ const Login = () => {
     <Navbar />
     <div
       style={{
-        backgroundImage: "url('/static/4885247.jpg')",
+        backgroundImage: `url(${bckimg})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
@@ -72,7 +73,7 @@ const Login = () => {
           <i className="bi bi-box-arrow-in-right"></i> Login
         </h2>
         <form onSubmit={loginUser}>
-          <div className="mb-3">
+          <div className="mb-1">
             <label htmlFor="email" className="form-label fw-medium">Email address</label>
             <input
               type="email"

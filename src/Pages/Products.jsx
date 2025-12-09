@@ -185,7 +185,7 @@ function Products() {
             onChange={(e) => setSearchTerm(e.target.value)}
           />
         </div>
-
+       <div className="card">
         {/* DATA TABLE */}
         <DataTable
           columns={columns}
@@ -197,6 +197,7 @@ function Products() {
           responsive
           dense
         />
+        </div>
       </div>
 
       {/* ADD PRODUCT MODAL */}
